@@ -13,17 +13,20 @@ A SwiftUI view that enables you to properly present a `MFMailComposeViewControll
 ## Example
 
 ```swift
-Button {
-    mail = Mail(
-    var mail = Mail(
-        to: "mail@foo.bar",
-        subject: "...",
-        message: .plainText("")
-    )
-} label: {
-    Text("Send email")
+@State private var mail: Mail?
+
+var body: some View {
+    Button {
+        mail = Mail(
+            to: "mail@foo.bar",
+            subject: "...",
+            message: .plainText("")
+        )
+    } label: {
+        Text("Send email")
+    }
+    .mail($mail)
 }
-.mail($mail)
 ```
 
 ## Installation
