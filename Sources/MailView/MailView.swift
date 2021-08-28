@@ -7,7 +7,7 @@ public extension View {
     /// - Parameters:
     ///   - mail: The mail to be sent
     ///   - onComplete: When the email composer is dimissed, this will be called with the result
-    func mail(_ mail: Binding<Mail?>, onComplete: MailResult? = nil) -> some View {
+    func mailComposer(_ mail: Binding<Mail?>, onComplete: MailResult? = nil) -> some View {
         background(MailView(mail: mail, onComplete: onComplete))
     }
 
