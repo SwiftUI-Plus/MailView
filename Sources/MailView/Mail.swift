@@ -37,10 +37,37 @@ public struct Mail: Codable {
 
     /// Represents teh message associated with a `Mail` instance
     public enum Message: Codable, ExpressibleByStringLiteral {
+        private enum CodingKeys: String, CodingKey {
+            case plainText
+            case html
+        }
+
         /// The message text will be interpreted as plain text
         case plainText(String)
         /// The message text will be interpreted as HTML content
         case html(String)
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            if let text = try container.decodeIfPresent(String.self, forKey: .plainText) {
+                self = .plainText(text)
+            } else if let text = try container.decodeIfPresent(String.self, forKey: .html) {
+                self = .html(text)
+            } else {
+                throw DecodingError.valueNotFound(String.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Couldn't decode `Message` for either plainText or HTML"))
+            }
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            switch self {
+            case let .plainText(text):
+                try container.encode(text, forKey: .plainText)
+            case let .html(text):
+                try container.encode(text, forKey: .html)
+            }
+        }
 
         internal var isHTML: Bool {
             switch self {
