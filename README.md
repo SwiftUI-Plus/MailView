@@ -1,4 +1,5 @@
-![ios](https://img.shields.io/badge/iOS-13-green)
+![ios](https://img.shields.io/badge/iOS-14-green)
+![ios](https://img.shields.io/badge/macOS-11-green)
 
 # MailView
 
