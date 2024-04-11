@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "MailView",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v14),
+        .macOS(.v11),
     ],
     products: [
         .library(
@@ -15,6 +16,12 @@ let package = Package(
         ),
     ],
     targets: [
-        .target(name: "MailView")
+        .target(
+            name: "MailView",
+            swiftSettings: [
+                .enableUpcomingFeature("BareSlashRegexLiterals"),
+                .enableUpcomingFeature("StrictConcurrency")
+            ]
+        )
     ]
 )
